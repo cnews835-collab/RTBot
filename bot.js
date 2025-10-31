@@ -87,6 +87,55 @@ client.on("interactionCreate", async interaction => {
         id: OWNER_ID,
         allow: ["ViewChannel", "SendMessages"]
       }
+      if (message.content.startsWith("!release") && message.author.id === OWNER_ID) {
+  const args = message.content.split("|");
+  if (args.length < 4) return message.reply("Use format: `!release | Title | Description | ImageURL`");
+
+  const title = args[1].trim();
+  const description = args[2].trim();
+  const imageURL = args[3].trim();
+
+  const embed = new EmbedBuilder()
+    .setTitle(`🚀 New Release: ${title}`)
+    .setDescription(description)
+    .setImage(imageURL)
+    .setColor(0x00FF99)
+    .setTimestamp();
+
+  await message.channel.send({ embeds: [embed] });
+}
+if (message.content === "!releases") {
+  const embed = new EmbedBuilder()
+    .setTitle("📦 Recent Product Releases")
+    .setDescription("Here are our latest drops:")
+    .addFields(
+      { name: "RT UI Pack", value: "Clean, responsive UI for Roblox games" },
+      { name: "RT Gun System", value: "Realistic FPS mechanics with recoil and reload" },
+      { name: "RT Lobby Kit", value: "Stylized lobby with teleport and shop zones" }
+    )
+    .setColor(0x3399FF)
+    .setTimestamp();
+
+  await message.channel.send({ embeds: [embed] });
+}
+if (message.content.startsWith("!feature") && message.author.id === OWNER_ID) {
+  const args = message.content.split("|");
+  if (args.length < 4) return message.reply("Use format: `!feature | Title | Description | ImageURL`");
+
+  const title = args[1].trim();
+  const description = args[2].trim();
+  const imageURL = args[3].trim();
+
+  const embed = new EmbedBuilder()
+    .setTitle(`🌟 Featured Product: ${title}`)
+    .setDescription(description)
+    .setImage(imageURL)
+    .setColor(0xFFD700)
+    .setFooter({ text: "Available now at RT Industries" });
+
+  await message.channel.send({ embeds: [embed] });
+}
+
     ]
   });
 
